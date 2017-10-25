@@ -18,15 +18,14 @@ public class main {
 		
 		PID pid; 
 		
-		pid = new PID(0.25, 0.01, 0.4);
-		pid.setOutputLimits(10);
+		pid = new PID(1.8, 0.4, 0.1);
+		pid.setOutputLimits(100);
 		//miniPID.setMaxIOutput(2);
 		//miniPID.setOutputRampRate(3);
 		//miniPID.setOutputFilter(.3);
-		pid.setSetpointRange(40);
 		
 		double sensor = 0;
-		double target = 0;
+		double target = 7;
 
 		
 		
@@ -49,8 +48,18 @@ public class main {
 			  //do something with the output
 			  //Delay(10);
 			  System.out.println(output);
-			  m1.rotate((int)output*5);
-			  m2.rotate((int)output*5);
+			  
+			  if (output <= 0) {
+				  m1.forward();
+				  m2.forward();
+			  } else {
+				  m1.backward();
+				  m2.backward();
+			  }
+			  
+			  m1.setSpeed((int)output*50);
+			  m2.setSpeed((int)output*50);
+			  
 			}
 		
 		
